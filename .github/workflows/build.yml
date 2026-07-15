@@ -16,13 +16,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: 进入项目目录并赋予执行权限
+      - name: 编译Release安装包
         run: |
           cd TapTest
-          chmod +x ./gradlew
-
-      - name: 编译Release安装包
-        run: cd TapTest && ./gradlew assembleRelease
+          gradle assembleRelease
 
       - name: 导出成品APK
         uses: actions/upload-artifact@v4
