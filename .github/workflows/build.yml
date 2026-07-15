@@ -7,22 +7,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 拉取仓库代码
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 配置JDK17
+      - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: 编译Release安装包
-        run: |
-          cd TapTest
-          gradle assembleRelease
+      - name: Build APK
+        working-directory: ./TapTest
+        run: gradle assembleRelease
 
-      - name: 导出成品APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: tap-arm64-apk
+          name: TapTest_APK
           path: TapTest/app/build/outputs/apk/release/app-release.apk
